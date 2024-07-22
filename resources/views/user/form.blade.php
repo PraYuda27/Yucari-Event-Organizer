@@ -1,5 +1,3 @@
-<!-- resources/views/form.blade.php -->
-
 @extends('user.layouts.app')
 
 @section('title', 'Formulir Kontak')
@@ -12,6 +10,12 @@
 @section('content')
 <div class="form-container">
     <div class="form-card animate-fadeIn">
+        @if(session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+        <form action="/form/send" method="POST">
             @csrf
             <h2>Mulai Rencanakan</h2>
             <div class="inputBox">
@@ -19,7 +23,7 @@
                 <span>Nama</span>
             </div>
             <div class="inputBox">
-                <input type="text" name="email" required="required">
+                <input type="email" name="email" required="required">
                 <span>Email</span>
             </div>
             <div class="inputBox">
@@ -27,7 +31,7 @@
                 <span>Nomor Telepon</span>
             </div>
             <div class="inputBox">
-                <input type="text" name="alamat" required="required">
+                <input type="text" name="address" required="required">
                 <span>Alamat</span>
             </div>
             <input type="submit" value="Kirim">

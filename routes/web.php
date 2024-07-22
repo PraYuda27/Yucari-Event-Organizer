@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\Auth\AdminLoginController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\TestController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,22 +17,28 @@ use App\Http\Controllers\AdminController;
 |
 */
 
-/*User*/
+/* User */
 Route::get('/', function () {
     return view('user.home')->with('header-class', 'home-header');
 });
+
 Route::get('/about', function () {
     return view('user.about')->with('header-class', 'about-header');
 });
+
 Route::get('/projects', function () {
     return view('user.projects');
 });
-Route::get('/form', function () {
-    return view('user.form');
-});
-Route::get('/contact', function () {
-    return view('user.contact');
-});
+
+// Route untuk menampilkan form
+Route::get('/form', [PageController::class, 'form']);
+
+// Route untuk menampilkan kontak
+Route::get('/contact', [PageController::class, 'contact']);
+
+// Route untuk menangani form submission
+Route::post('/form/send', [PageController::class, 'storeMember']);
+Route::post('/contact/send', [PageController::class, 'storeFeedback']);
 
 /* Admin */
 Route::get('/admin/login', [AdminLoginController::class, 'showLoginForm'])->name('admin.login');
